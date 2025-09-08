@@ -57,14 +57,17 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
 
     fig, ax = plt.subplots(figsize=(6,6))
     area.plot(ax=ax, color="tan", alpha=0.5)
-    buildings.plot(ax=ax, facecolor="gray", edgecolor="gray")
-    edges.plot(ax=ax, linewidth=1, edgecolor="black", alpha=0.3)
-    nodes.plot(ax=ax, color="black", markersize=1, alpha=0.3)
-    amenities.plot(ax=ax, color="blue", markersize=5)
-    natural.plot(ax=ax, color="lightgreen", alpha=0.6)  
-    shops.plot(ax=ax, color="purple", markersize=5)
-    roads.plot(ax=ax, color="black", linewidth=0.5)
-    
+    if not buildings.empty:
+        buildings.plot(ax=ax, facecolor="gray", edgecolor="gray", alpha=0.6)
+    if not amenities.empty:
+        amenities.plot(ax=ax, color="blue", markersize=5)
+    if not shops.empty:
+        shops.plot(ax=ax, color="purple", markersize=5)
+    if not natural.empty:
+        natural.plot(ax=ax, color="lightgreen", alpha=0.6)
+    if not waterways.empty:
+        waterways.plot(ax=ax, color="blue", linewidth=1)
+
     ax.set_xlim(west, east)
     ax.set_ylim(south, north)
     ax.set_title(place_name, fontsize=14)
