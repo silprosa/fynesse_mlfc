@@ -51,10 +51,8 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
     amenities = ox.features_from_bbox(bbox, tags={"amenity": True})
     shops = ox.features_from_bbox(bbox, tags={"shop": True})
     roads = ox.features_from_bbox(bbox, tags={"highway": True})
-
     natural = ox.features_from_bbox(bbox, tags={"natural": True})
     tourism = ox.features_from_bbox(bbox, tags={"tourism": True})
-    historic = ox.features_from_bbox(bbox, tags={"historic": True})
 
 
     fig, ax = plt.subplots(figsize=(6,6))
