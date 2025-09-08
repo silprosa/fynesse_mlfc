@@ -21,7 +21,7 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
     Returns:
         geopandas.GeoDataFrame: OSM features within the bounding box
     """
-       # Convert km to degrees (approx 1° = 111km)
+    # Convert km to degrees (approx 1° = 111km)
     box_width = box_size_km / 111
     box_height = box_size_km / 111
     
@@ -47,6 +47,7 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
     graph  = ox.graph_from_bbox(bbox)
     area  = ox.geocode_to_gdf(place_name)
     nodes, edges =ox.graph_to_gdfs(graph)
+    buildings = ox.features_from_bbox(bbox, tags={"building": True})
     amenities = ox.features_from_bbox(bbox, tags={"amenity": True})
     shops = ox.features_from_bbox(bbox, tags={"shop": True})
     roads = ox.features_from_bbox(bbox, tags={"highway": True})
@@ -60,10 +61,8 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
     fig, ax = plt.subplots(figsize=(6,6))
     area.plot(ax=ax, color="tan", alpha=0.5)
     buildings.plot(ax=ax, facecolor="gray", edgecolor="gray")
-    
     edges.plot(ax=ax, linewidth=1, edgecolor="black", alpha=0.3)
     nodes.plot(ax=ax, color="black", markersize=1, alpha=0.3)
-    buildings.plot(ax=ax, color="gray", alpha=0.6)
     amenities.plot(ax=ax, color="blue", markersize=5)
     natural.plot(ax=ax, color="lightgreen", alpha=0.6)  
     shops.plot(ax=ax, color="purple", markersize=5)
