@@ -46,7 +46,7 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
     
     graph  = ox.graph_from_bbox(bbox)
     area  = ox.geocode_to_gdf(place_name)
-    nodes, edges =ox.graph_to_gdf(graph)
+    nodes, edges =ox.graph_to_gdfs(graph)
     amenities = ox.features_from_bbox(bbox, tags={"amenity": True})
     shops = ox.features_from_bbox(bbox, tags={"shop": True})
     roads = ox.features_from_bbox(bbox, tags={"highway": True})
