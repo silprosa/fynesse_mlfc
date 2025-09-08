@@ -89,7 +89,7 @@ def get_osm_datapoints(latitude, longitude, box_size_km=2, poi_tags=None):
             "tourism": True,
             "religion": True,
              "memorial": True,
-            "aeroway": ["runway", "aerodrome"]
+            "aeroway": ["runway", "aerodrome"],
            "natural": True,
            "highway": True,
            "waterway": True,
