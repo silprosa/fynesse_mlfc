@@ -32,7 +32,22 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
     east = longitude + box_width/2
     bbox = (west, south, east, north)
     
-  
+      if poi_tags is None:
+        poi_tags = {
+            "amenity": True,
+            "building": True,
+            "historic": True,
+            "leisure": True,
+            "shop": True,
+            "tourism": True,
+            "religion": True,
+             "memorial": True,
+            "aeroway": ["runway", "aerodrome"],
+           "natural": True,
+           "highway": True,
+           "waterway": True,
+           
+        }
     """
     Visualize geographic data on a map.
     
@@ -65,9 +80,8 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
         shops.plot(ax=ax, color="purple", markersize=5)
     if not natural.empty:
         natural.plot(ax=ax, color="lightgreen", alpha=0.6)
-    if not waterways.empty:
-        waterways.plot(ax=ax, color="blue", linewidth=1)
-
+    edges.plot(ax=ax, linewidth=1, edgecolor="black", alpha=0.3)
+    nodes.plot(ax=ax, color="black", markersize=1, alpha=0.3)
     ax.set_xlim(west, east)
     ax.set_ylim(south, north)
     ax.set_title(place_name, fontsize=14)
