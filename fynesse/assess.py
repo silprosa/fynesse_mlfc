@@ -17,17 +17,7 @@ def get_osm_datapoints(latitude, longitude, box_size_km=2, poi_tags=None):
     Returns:
         geopandas.GeoDataFrame: OSM features within the bounding box
     """
-    if poi_tags is None:
-        poi_tags = {
-            "amenity": True,
-            "building": True,
-            "historic": True,
-            "leisure": True,
-            "shop": True,
-            "tourism": True
-        }
-    
-    # Convert km to degrees (approx 1° = 111km)
+       # Convert km to degrees (approx 1° = 111km)
     box_width = box_size_km / 111
     box_height = box_size_km / 111
     
@@ -38,6 +28,24 @@ def get_osm_datapoints(latitude, longitude, box_size_km=2, poi_tags=None):
     east = longitude + box_width/2
     bbox = (west, south, east, north)
     
+    if poi_tags is None:
+        poi_tags = {
+            "amenity": True,
+            "building": True,
+            "historic": True,
+            "leisure": True,
+            "shop": True,
+            "tourism": True,
+            "religion": True,
+             "memorial": True,
+            "aeroway": ["runway", "aerodrome"],
+           "natural": True,
+           "highway": True,
+           "waterway": True,
+           
+        }
+    
+
     # Download OSM data
     pois = ox.features_from_bbox(bbox, poi_tags)
     
