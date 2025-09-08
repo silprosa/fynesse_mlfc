@@ -55,7 +55,6 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
     natural = ox.features_from_bbox(bbox, tags={"natural": True})
     tourism = ox.features_from_bbox(bbox, tags={"tourism": True})
     historic = ox.features_from_bbox(bbox, tags={"historic": True})
-    aeroway = ox.features_from_bbox(bbox, tags={"aeroway": ["runway", "aerodrome"]})
 
 
     fig, ax = plt.subplots(figsize=(6,6))
