@@ -31,8 +31,8 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
     west = longitude - box_width/2
     east = longitude + box_width/2
     bbox = (west, south, east, north)
-    
-      if poi_tags is None:
+
+    if poi_tags is None:
         poi_tags = {
             "amenity": True,
             "building": True,
@@ -41,13 +41,13 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
             "shop": True,
             "tourism": True,
             "religion": True,
-             "memorial": True,
+            "memorial": True,
             "aeroway": ["runway", "aerodrome"],
-           "natural": True,
-           "highway": True,
-           "waterway": True,
-           
+            "natural": True,
+            "highway": True,
+            "waterway": True,
         }
+
     """
     Visualize geographic data on a map.
     
