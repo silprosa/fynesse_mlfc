@@ -6,7 +6,9 @@ import numpy as np
 import osmnx as ox
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning, module='osmnx')
-def get_osm_datapoints(latitude, longitude, box_size_km=2, poi_tags=None):
+
+
+def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None):
     """
     Get OSM data points within a bounding box around given coordinates.
     
@@ -30,29 +32,7 @@ def get_osm_datapoints(latitude, longitude, box_size_km=2, poi_tags=None):
     east = longitude + box_width/2
     bbox = (west, south, east, north)
     
-    if poi_tags is None:
-        poi_tags = {
-            "amenity": True,
-            "building": True,
-            "historic": True,
-            "leisure": True,
-            "shop": True,
-            "tourism": True,
-            "religion": True,
-             "memorial": True,
-            "aeroway": ["runway", "aerodrome"],
-           "natural": True,
-           "highway": True,
-           "waterway": True,
-           
-        }
-    
-
-    # Download OSM data
-    pois = ox.features_from_bbox(bbox, poi_tags)
-    
-    return pois
-def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None):
+  
     """
     Visualize geographic data on a map.
     
@@ -61,23 +41,42 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
         latitude (float): Center latitude
         longitude (float): Center longitude
         box_size_km (float): Size of bounding box in km
-        poi_tags (dict): OSM tags for points of interest
+        poi_tags (dict): OSM tags for points of interest ,fwi i abandonded dict :)
     """
-    # Get data
-    pois = get_osm_datapoints(latitude, longitude, box_size_km, poi_tags)
     
-    # Create figure
-    fig, ax = plt.subplots(figsize=(10, 10))
+    graph  = ox.graph_from_bbox(bbox)
+    area  = ox.geocode_to_gdf(place_name)
+    nodes, edges =ox.graph_to_gdf(graph)
+    amenities = ox.features_from_bbox(bbox, tags={"amenity": True})
+    shops = ox.features_from_bbox(bbox, tags={"shop": True})
+    roads = ox.features_from_bbox(bbox, tags={"highway": True})
+    waterways = ox.features_from_bbox(bbox, tags={"waterway": True})
+    natural = ox.features_from_bbox(bbox, tags={"natural": True})
+    tourism = ox.features_from_bbox(bbox, tags={"tourism": True})
+    historic = ox.features_from_bbox(bbox, tags={"historic": True})
+    aeroway = ox.features_from_bbox(bbox, tags={"aeroway": ["runway", "aerodrome"]})
+
+
+    fig, ax = plt.subplots(figsize=(6,6))
+    area.plot(ax=ax, color="tan", alpha=0.5)
+    buildings.plot(ax=ax, facecolor="gray", edgecolor="gray")
     
-    # Plot points
-    pois.plot(ax=ax, color='red', markersize=10, alpha=0.7)
+    edges.plot(ax=ax, linewidth=1, edgecolor="black", alpha=0.3)
+    nodes.plot(ax=ax, color="black", markersize=1, alpha=0.3)
+    buildings.plot(ax=ax, color="gray", alpha=0.6)
+    amenities.plot(ax=ax, color="blue", markersize=5)
+    natural.plot(ax=ax, color="lightgreen", alpha=0.6)  
+    shops.plot(ax=ax, color="purple", markersize=5)
+    roads.plot(ax=ax, color="black", linewidth=0.5)
     
-    # Customize plot
-    ax.set_title(f"OSM Points of Interest - {place_name}")
-    ax.set_xlabel("Longitude")
-    ax.set_ylabel("Latitude")
-    plt.tight_layout()
+    waterways.plot(ax=ax, color="blue", linewidth=1)
+    ax.set_xlim(west, east)
+    ax.set_ylim(south, north)
+    ax.set_title(place_name, fontsize=14)
     plt.show()
+
+
+
 
 def get_osm_features(latitude, longitude, box_size_km=2, tags=None):
     """
