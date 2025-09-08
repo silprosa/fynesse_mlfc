@@ -1,3 +1,4 @@
+!pip install osmnx
 import osmnx as ox
 import matplotlib.pyplot as plt
 import warnings
