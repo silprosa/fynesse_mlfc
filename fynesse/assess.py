@@ -3,6 +3,7 @@ from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 import pandas as pd
 import numpy as np
+import osmnx as ox
 def get_osm_datapoints(latitude, longitude, box_size_km=2, poi_tags=None):
     """
     Get OSM data points within a bounding box around given coordinates.
