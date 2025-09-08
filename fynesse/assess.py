@@ -4,6 +4,7 @@ from sklearn.manifold import TSNE
 import pandas as pd
 import numpy as np
 import osmnx as ox
+import warnings
 warnings.filterwarnings("ignore", category=FutureWarning, module='osmnx')
 def get_osm_datapoints(latitude, longitude, box_size_km=2, poi_tags=None):
     """
