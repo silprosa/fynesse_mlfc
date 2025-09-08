@@ -79,7 +79,7 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
     if not shops.empty:
         shops.plot(ax=ax, color="purple", markersize=5)
     if not natural.empty:
-        natural.plot(ax=ax, color="lightgreen", alpha=0.6)
+        natural.plot(ax=ax,facecolor="lightgreen", edgecolor="gray", alpha=0.6)
     edges.plot(ax=ax, linewidth=1, edgecolor="black", alpha=0.3)
     nodes.plot(ax=ax, color="black", markersize=1, alpha=0.3)
     ax.set_xlim(west, east)
