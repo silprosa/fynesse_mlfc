@@ -227,3 +227,65 @@ county_relation_ids = {
     "Nyamira":      "r3486290",
     "Nairobi":      "R3492709"
 }
+
+def clean_county_names(counties):
+    """
+    Clean up county names:
+    - Strip whitespace
+    - Remove 'City'
+    - Remove straight and curly apostrophes
+    - Add 'County, Kenya' suffix (except if already present)
+    """
+    county_list = []
+    for c in counties:
+        name = str(c).strip()
+        # Remove "City" if present
+        name = name.replace(" City", "")
+        # Remove apostrophes
+        name = name.replace("'", "")
+        name = name.replace("’", "")  # also handle curly apostrophe
+        county_list.append(name)
+    return county_list
+
+def get_relation_ids(county_list):
+    """
+    Given a list of county names and a dictionary mapping
+    county names to relation IDs, return a list of relation IDs.
+    """
+    relation_ids = []
+    for county in county_list:
+        if county in county_relation_ids:
+            relation_ids.append(county_relation_ids[county])
+        else:
+            print(f"Warning: {county} not found in dictionary")
+    return relation_ids
+
+
+
+
+
+def just_plot_counties(relation_ids, ax=None):
+    """
+    Plot multiple counties from a list of OSM relation IDs.
+    
+    Parameters:
+        relation_ids (list): List of OSM relation IDs (e.g., ["R3495554", "R3495548"]).
+        ax (matplotlib axis, optional): Axis to plot on. Creates new one if None.
+        
+    Returns:
+        gdf (GeoDataFrame): GeoDataFrame with all geometries.
+    """
+    # Get all counties as a GeoDataFrame
+    gdf = ox.geocoder.geocode_to_gdf(relation_ids, by_osmid=True)
+    
+    # If no axis is passed, create one
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(10, 10))
+    
+    # Plot with different colors
+    gdf.plot(ax=ax, alpha=0.5, edgecolor="black", legend=True)
+    
+    plt.show()
+    return gdf
+
+
