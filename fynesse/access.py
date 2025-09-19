@@ -430,4 +430,4 @@ def plot_counties(relation_ids, prop=None, ax=None):
         gdf.plot(ax=ax, alpha=0.5, edgecolor="black")
     
     plt.show()
-    return 
+    return gdf
