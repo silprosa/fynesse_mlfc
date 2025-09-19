@@ -227,7 +227,7 @@ county_relation_ids = {
     "Nyamira":      "r3486290",
     "Nairobi":      "R3492709"
 }
-education_level = {
+education_mapping = {
     'Never Attended': 0,
     'None': 0,
     'NON-FORMAL EDUCATION (ADULT BASIC EDUCATION)': 0.5, # Basic literacy, not formal school
