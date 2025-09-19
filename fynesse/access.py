@@ -372,6 +372,21 @@ def get_relation_ids(county_list):
     return relation_ids
 
 
+def clean_boolean_columns(df, columns=None):
+    df_clean = df.copy()
+    
+    if columns is None:
+        columns = df_clean.columns.tolist()
+    
+    for col in columns:
+        if col in df_clean.columns:
+            # Convert various formats to boolean
+            df_clean[col] = df_clean[col].astype(str).str.lower().map({
+                '1': True, 'true': True, 'yes': True, 'y': True,
+                '0': False, 'false': False, 'no': False, 'n': False
+            })
+    
+    return df_clean
 
 
 
