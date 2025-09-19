@@ -276,7 +276,7 @@ education_mapping = {
     'MADRASSA/DUKSI': 4,     # Mapping religious education to primary level
     'SPECIAL NEEDS EDUCATION': 4 # Mapping to primary level
 }
-simple_education_map = {
+easy_education_mapping = {
     'Never Attended': 0,
     'None': 0,
     'NON-FORMAL EDUCATION (ADULT BASIC EDUCATION)': 0,
