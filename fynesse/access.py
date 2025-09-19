@@ -325,7 +325,6 @@ easy_education_mapping = {
     'MADRASSA/DUKSI': 2,     # Map to Primary level
     'SPECIAL NEEDS EDUCATION': 2 # Map to Primary level
 }
-
 category_labels = {
     0: 'No Formal Education',
     1: 'Pre-Primary',
