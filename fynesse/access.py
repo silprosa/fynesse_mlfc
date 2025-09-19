@@ -425,9 +425,9 @@ def plot_counties(relation_ids, prop=None, ax=None):
         fig, ax = plt.subplots(figsize=(10, 10))
     
     if prop is not None and prop in gdf.columns:
-        gdf.plot(column=prop, ax=ax, cmap="viridis", legend=True, edgecolor="black")
+        gdf.plot(column=prop, ax=ax, cmap="viridis",edgecolor="black", linewidth=0.1 , legend=True)
     else:
         gdf.plot(ax=ax, alpha=0.5, edgecolor="black")
     
     plt.show()
-    return gdf
+    return
