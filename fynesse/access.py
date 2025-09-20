@@ -112,72 +112,44 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-
-def data() -> Union[pd.DataFrame, None]:
+def data(file_path: str = "data.csv") -> Union[pd.DataFrame, None]:
     """
-    Read the data from the web or local file, returning structured format such as a data frame.
+    Load data from a CSV file into a DataFrame with logging and error handling.
 
-    IMPLEMENTATION GUIDE
-    ====================
-
-    1. REPLACE THIS FUNCTION WITH YOUR ACTUAL DATA LOADING CODE:
-       - Load data from your specific sources
-       - Handle common errors (file not found, network issues)
-       - Validate that data loaded correctly
-       - Return the data in a useful format
-
-    2. ADD ERROR HANDLING:
-       - Use try/except blocks for file operations
-       - Check if data is empty or corrupted
-       - Provide helpful error messages
-
-    3. ADD BASIC LOGGING:
-       - Log when you start loading data
-       - Log success with data summary
-       - Log errors with context
-
-    4. EXAMPLE IMPLEMENTATION:
-       try:
-           print("Loading data from data.csv...")
-           df = pd.read_csv('data.csv')
-           print(f"Successfully loaded {len(df)} rows, {len(df.columns)} columns")
-           return df
-       except FileNotFoundError:
-           print("Error: data.csv file not found")
-           return None
-       except Exception as e:
-           print(f"Error loading data: {e}")
-           return None
+    Args:
+        file_path (str): Path to the CSV file. Defaults to 'data.csv'.
 
     Returns:
-        DataFrame or other structured data format
+        pd.DataFrame or None: The loaded DataFrame, or None if load failed.
     """
     logger.info("Starting data access operation")
 
     try:
-        # IMPLEMENTATION: Replace this with your actual data loading code
-        # Example: Load data from a CSV file
-        logger.info("Loading data from data.csv")
-        df = pd.read_csv("data.csv")
+        logger.info(f"Loading data from {file_path}...")
+        df = pd.read_csv(file_path)
 
         # Basic validation
         if df.empty:
             logger.warning("Loaded data is empty")
             return None
 
-        logger.info(
-            f"Successfully loaded data: {len(df)} rows, {len(df.columns)} columns"
-        )
+        logger.info(f"Successfully loaded data: {len(df)} rows, {len(df.columns)} columns")
         return df
 
     except FileNotFoundError:
-        logger.error("Data file not found: data.csv")
-        print("Error: Could not find data.csv file. Please check the file path.")
+        logger.error(f"Data file not found: {file_path}")
+        print(f"Error: Could not find {file_path}. Please check the file path.")
+        return None
+    except pd.errors.EmptyDataError:
+        logger.error("File is empty or corrupted")
+        print("Error: The file is empty or corrupted")
         return None
     except Exception as e:
         logger.error(f"Unexpected error loading data: {e}")
         print(f"Error loading data: {e}")
         return None
+
+
 county_relation_ids = {
     "Mombasa":      "R3495554",
     "Kwale":        "R3495548",
