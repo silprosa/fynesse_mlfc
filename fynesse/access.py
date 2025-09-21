@@ -120,12 +120,21 @@ from typing import Union
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
-def data(file_path: str = "data.csv") -> Union[pd.DataFrame, None]:
+import pandas as pd
+import logging
+from typing import Union
+
+# Setup logger
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
+
+def data(file_path: str, name: str = "DataFrame") -> Union[pd.DataFrame, None]:
     """
     Load data from a CSV or Stata (.dta) file into a DataFrame with logging and error handling.
 
     Args:
-        file_path (str): Path to the data file. Defaults to 'data.csv'.
+        file_path (str): Path to the data file (.csv or .dta).
+        name (str): Friendly name for the dataset (e.g., 'individuals').
 
     Returns:
         pd.DataFrame or None: The loaded DataFrame, or None if load failed.
@@ -141,13 +150,14 @@ def data(file_path: str = "data.csv") -> Union[pd.DataFrame, None]:
             df = pd.read_stata(file_path)
         else:
             raise ValueError("Unsupported file type. Please use .csv or .dta")
-        print(f"{df} Data loaded successfully: {len(df)} rows, {len(df.columns)} columns")
+
         # Basic validation
         if df.empty:
-            logger.warning("Loaded data is empty")
+            logger.warning(f"{name} is empty")
             return None
 
-        logger.info(f"Successfully loaded data: {len(df)} rows, {len(df.columns)} columns")
+        logger.info(f"{name} loaded successfully: {len(df)} rows, {len(df.columns)} columns")
+        print(f"{name} loaded successfully: {len(df)} rows, {len(df.columns)} columns")
         return df
 
     except FileNotFoundError:
@@ -155,14 +165,13 @@ def data(file_path: str = "data.csv") -> Union[pd.DataFrame, None]:
         print(f"Error: Could not find {file_path}. Please check the file path.")
         return None
     except pd.errors.EmptyDataError:
-        logger.error("File is empty or corrupted")
-        print("Error: The file is empty or corrupted")
+        logger.error(f"{name} file is empty or corrupted")
+        print(f"Error: {name} file is empty or corrupted")
         return None
     except Exception as e:
-        logger.error(f"Unexpected error loading data: {e}")
-        print(f"Error loading data: {e}")
+        logger.error(f"Unexpected error loading {name}: {e}")
+        print(f"Error loading {name}: {e}")
         return None
-
 
 county_relation_ids = {
     "Mombasa":      "R3495554",
