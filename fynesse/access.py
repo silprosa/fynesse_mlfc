@@ -350,16 +350,22 @@ def clean_boolean_columns(df, columns=None):
     if columns is None:
         columns = df_clean.columns.tolist()
     
+    mapping = {
+        '1': True, 'true': True, 'yes': True, 'y': True,
+        '0': False, 'false': False, 'no': False, 'n': False
+    }
+    
     for col in columns:
         if col in df_clean.columns:
-            # Convert various formats to boolean
-            df_clean[col] = df_clean[col].astype(str).str.lower().map({
-                '1': True, 'true': True, 'yes': True, 'y': True,
-                '0': False, 'false': False, 'no': False, 'n': False
-            })
+            # Convert only non-null values
+            df_clean[col] = (
+                df_clean[col]
+                .dropna()  # leave NaN untouched
+                .astype(str).str.lower()
+                .map(mapping)
+            ).reindex(df_clean.index)  # restore alignment
     
     return df_clean
-
 
 
 def just_plot_counties(relation_ids, ax=None):
