@@ -3,6 +3,7 @@ import osmnx as ox
 import matplotlib.pyplot as plt
 import warnings
 import math
+from typing import List, Optional
 warnings.filterwarnings("ignore", category=FutureWarning, module='osmnx')
 """
 Access module for the fynesse framework.
