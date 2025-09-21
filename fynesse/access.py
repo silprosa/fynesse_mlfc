@@ -112,12 +112,20 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+import pandas as pd
+import logging
+from typing import Union
+
+# Setup logger
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
+
 def data(file_path: str = "data.csv") -> Union[pd.DataFrame, None]:
     """
-    Load data from a CSV file into a DataFrame with logging and error handling.
+    Load data from a CSV or Stata (.dta) file into a DataFrame with logging and error handling.
 
     Args:
-        file_path (str): Path to the CSV file. Defaults to 'data.csv'.
+        file_path (str): Path to the data file. Defaults to 'data.csv'.
 
     Returns:
         pd.DataFrame or None: The loaded DataFrame, or None if load failed.
@@ -126,7 +134,13 @@ def data(file_path: str = "data.csv") -> Union[pd.DataFrame, None]:
 
     try:
         logger.info(f"Loading data from {file_path}...")
-        df = pd.read_stata(file_path)
+
+        if file_path.endswith(".csv"):
+            df = pd.read_csv(file_path)
+        elif file_path.endswith(".dta"):
+            df = pd.read_stata(file_path)
+        else:
+            raise ValueError("Unsupported file type. Please use .csv or .dta")
 
         # Basic validation
         if df.empty:
