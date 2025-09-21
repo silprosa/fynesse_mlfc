@@ -126,7 +126,7 @@ def data(file_path: str = "data.csv") -> Union[pd.DataFrame, None]:
 
     try:
         logger.info(f"Loading data from {file_path}...")
-        df = pd.read_csv(file_path)
+        df = pd.read_stata(file_path)
 
         # Basic validation
         if df.empty:
