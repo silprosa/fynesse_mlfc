@@ -294,3 +294,21 @@ def view(data: Union[pd.DataFrame, Any]) -> None:
 def labelled(data: Union[pd.DataFrame, Any]) -> Union[pd.DataFrame, Any]:
     """Provide a labelled set of data ready for supervised learning."""
     raise NotImplementedError
+
+def plot_counties(relation_ids, prop=None, ax=None):
+    gdf = ox.geocoder.geocode_to_gdf(relation_ids, by_osmid=True)
+    
+    if isinstance(prop, (list, pd.Series)):
+        gdf["prop"] = prop
+        prop = "prop"
+    
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(10, 10))
+    
+    if prop is not None and prop in gdf.columns:
+        gdf.plot(column=prop, ax=ax, cmap="viridis",edgecolor="black", linewidth=0.1 , legend=True)
+    else:
+        gdf.plot(ax=ax, alpha=0.5, edgecolor="black")
+    
+    plt.show()
+    return
