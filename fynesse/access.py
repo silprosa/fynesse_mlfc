@@ -141,7 +141,7 @@ def data(file_path: str = "data.csv") -> Union[pd.DataFrame, None]:
             df = pd.read_stata(file_path)
         else:
             raise ValueError("Unsupported file type. Please use .csv or .dta")
-
+   print(f"{df} Data loaded successfully: {len(df)} rows, {len(df.columns)} columns")
         # Basic validation
         if df.empty:
             logger.warning("Loaded data is empty")
