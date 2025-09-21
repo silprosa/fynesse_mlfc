@@ -172,7 +172,20 @@ def data(file_path: str, name: str = "DataFrame") -> Union[pd.DataFrame, None]:
         logger.error(f"Unexpected error loading {name}: {e}")
         print(f"Error loading {name}: {e}")
         return None
+def get_columns(df: Optional[pd.DataFrame]) -> List[str]:
+    """
+    Return the list of columns from a DataFrame.
 
+    Args:
+        df (pd.DataFrame or None): The DataFrame to extract columns from.
+
+    Returns:
+        List[str]: A list of column names, empty if df is None or invalid.
+    """
+    if df is None or df.empty:
+        print("Warning: DataFrame is None or empty")
+        return []
+    return df.columns.tolist()
 county_relation_ids = {
     "Mombasa":      "R3495554",
     "Kwale":        "R3495548",
