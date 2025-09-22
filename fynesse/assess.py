@@ -321,6 +321,30 @@ def plot_counties(relation_ids, prop=None, ax=None):
     
     plt.show()
     return
+def merge_county_data(area_df: pd.DataFrame, distances_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Cleans county names in the area DataFrame and merges with county distance data.
+    Prevents duplicate columns when re-run.
+    """
+    name_corrections = {
+        "Taita–Taveta": "Taita-Taveta",
+        "Homa Bay": "Homabay",
+        "Trans-Nzoia": "Trans Nzoia",
+        "Muranga": "Murang'a",
+        "Tharaka-Nithi": "Tharaka Nithi"
+    }
+
+    area_df = area_df.copy()
+    area_df["county"] = area_df["county"].replace(name_corrections)
+
+    # Drop old distance columns if they exist (to prevent duplication)
+    cols_to_drop = ["dist_pri_school", "dist_sec_school"]
+    area_df = area_df.drop(columns=[c for c in cols_to_drop if c in area_df.columns])
+
+    merged = area_df.merge(distances_df, on="county", how="left")
+
+    return merged
+
 def analyze_distance_to_school(df_col):
     plt.figure(figsize=(15, 5))
     
