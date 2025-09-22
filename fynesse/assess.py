@@ -88,7 +88,16 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
     plt.show()
 
 
+def plot_education_levels(df):
+    plt.figure(figsize=(12, 8))
 
+    education_levels = df.value_counts().dropna()
+    plt.barh(education_levels.index, education_levels.values)
+    plt.title('Education Level Distribution')
+    plt.xlabel('Count')
+    plt.ylabel('Education Level')
+    plt.tight_layout()
+    plt.show()
 
 def get_osm_features(latitude, longitude, box_size_km=2, tags=None):
     """
