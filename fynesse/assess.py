@@ -438,3 +438,40 @@ def parent_child_education(df: pd.DataFrame) -> pd.DataFrame:
     merged = children.join(heads, on="interview_key")
 
     return merged.reset_index()
+
+def plot_age_distribution_by_education(df, edu_order, title="Age Distributions Across Education Levels"):
+    """
+    Plots age distribution histograms for each education level.
+
+    Args:
+        df (pd.DataFrame): DataFrame with at least 'age' and 'education_level' columns.
+        edu_order (list or dict): Ordering of education levels for plotting.
+        title (str): Title of the entire figure.
+    """
+    # Handle dict or list for ordering
+    if isinstance(edu_order, dict):
+        order = list(edu_order.keys())
+    else:
+        order = edu_order
+
+    g = sns.FacetGrid(
+        df,
+        col="education_level",
+        col_wrap=4,
+        height=3,
+        col_order=order,
+        sharey=False,
+        sharex=True
+    )
+    g.map_dataframe(sns.histplot, x="age", bins=10, color="skyblue", edgecolor="black")
+
+    g.set_titles("{col_name}")
+    g.set_axis_labels("Age", "Count")
+    plt.subplots_adjust(top=0.9)
+    g.fig.suptitle(title, fontsize=16)
+
+    # Force x-axis labels on all subplots
+    for ax in g.axes.flatten():
+        ax.tick_params(labelbottom=True)
+
+    plt.show()
