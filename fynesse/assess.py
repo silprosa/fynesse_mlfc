@@ -475,3 +475,28 @@ def plot_age_distribution_by_education(df, edu_order, title="Age Distributions A
         ax.tick_params(labelbottom=True)
 
     plt.show()
+
+def plot_relationships_distribution(df, column, relationships, order=None):
+    """
+    Plots separate countplots of a categorical column for multiple relationships.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing the data.
+        column (str): Column name to plot (e.g., 'education_level').
+        relationships (list): List of relationships to filter on.
+        order (list or dict, optional): Order of categories.
+    """
+    if isinstance(order, dict):
+        order = list(order.keys())
+
+    for rel in relationships:
+        subset = df[df["relationship_to_head"] == rel]
+
+        plt.figure(figsize=(12, 6))
+        sns.countplot(data=subset, x=column, order=order, edgecolor="black")
+        plt.title(f"{column.replace('_',' ').title()} Distribution of {rel}", fontsize=14)
+        plt.xlabel(column.replace("_"," ").title(), fontsize=12)
+        plt.ylabel("Number of Individuals", fontsize=12)
+        plt.xticks(rotation=45, ha="right")
+        plt.tight_layout()
+        plt.show()
