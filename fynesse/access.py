@@ -56,6 +56,13 @@ Best Practice on Implementation
        print("Error: Could not find data.csv file")
        return None
 """
+def legal() -> str:
+    """
+    Returns a standardized legal attribution string for the
+    Kenya National Housing Survey dataset from KeNADA.
+    """
+    return ("Contains Kenya National Housing Survey 2023/2024 data © "
+            "National Bureau of Statistics. Kenya National Data Archive (KeNADA).")
 
 def get_osm_datapoints(latitude, longitude, box_size_km=2, poi_tags=None):
     """
