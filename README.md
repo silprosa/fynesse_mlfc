@@ -36,7 +36,7 @@ sys.path.append("/content/fynesse_mlfc")
 ---
 The analysis employs the Access–Assess–Address framework:
 
----Access--- – Explore school attendance patterns across age, gender, county, and household status.
+Access – Explore school attendance patterns across age, gender, county, and household status.
 
 Assess – Investigate how socio-economic factors (income, parental education, household head status) shape attainment and participation.
 
@@ -114,11 +114,4 @@ poetry run pytest --cov=fynesse
 - Type checking must pass: `poetry run mypy fynesse/`
 - Linting must pass: `poetry run flake8 fynesse/`
 
-### Commit Guidelines
-- Use conventional commit messages
-- Include tests for new functionality
-- Update documentation as needed
 
-## License
-
-MIT License - see LICENSE file for details.
