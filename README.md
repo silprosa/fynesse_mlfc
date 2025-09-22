@@ -44,74 +44,10 @@ Address – Identify spatial and infrastructural barriers (distance to schools, 
 
 
 
-## Using the Framework
-
-### Template Implementation
-The framework is provided as a template with stub implementations. Each module contains:
-
+## Usage
 - *`access.py`*: Implement the `data()` function to load ydata sources
 - *`assess.py`*: plot(`your_plotting_function()`, `plot_counties()`, `view()`, `labelled()`)
 - *`address.py`*: Implement analysis and question-addressing functionality
 
-### Error Handling and Logging
-
-The framework includes basic error handling and logging to help you debug issues:
-
-**Basic Error Handling:**
-```python
-try:
-    df = pd.read_csv('data.csv')
-    print(f"Loaded {len(df)} rows of data")
-except FileNotFoundError:
-    print("Error: Could not find data.csv file")
-    return None
-```
-
-**Simple Logging:**
-```python
-import logging
-logger = logging.getLogger(__name__)
-logger.info("Starting data analysis")
-logger.error("Failed to load data")
-```
-
-**Key Principles:**
-- Use try/except blocks for operations that might fail
-- Provide helpful error messages for debugging
-- Log important events and errors
-- Check data validity before processing
-- Handle edge cases (empty data, missing files, etc.)
-
-### Configuration
-- Edit `fynesse/defaults.yml` for default configuration values
-- Create `fynesse/machine.yml` for machine-specific settings
-- Use `_config.yml` for project-specific configuration
-
-### Testing
-The template includes comprehensive test stubs:
-```bash
-# Run all tests
-poetry run pytest
-
-# Run specific module tests
-poetry run pytest fynesse/tests/test_access.py
-
-# Run with coverage
-poetry run pytest --cov=fynesse
-```
-
-## Contributing
-
-### Development Setup
-1. Fork the repository
-2. Install Poetry: `curl -sSL https://install.python-poetry.org | python3 -`
-3. Install dependencies: `poetry install --with dev`
-4. Create a feature branch: `git checkout -b feature/your-feature`
-
-### Code Quality
-- All code must pass tests: `poetry run pytest`
-- Code must be formatted: `poetry run black fynesse/`
-- Type checking must pass: `poetry run mypy fynesse/`
-- Linting must pass: `poetry run flake8 fynesse/`
 
 
