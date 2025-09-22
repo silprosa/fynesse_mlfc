@@ -395,3 +395,45 @@ def plot_distance_vs_area(area_df: pd.DataFrame, distance_col: str, title: str) 
     plt.ylabel(f"Mean {title} (km)")
     plt.tight_layout()
     plt.show()
+
+def parent_child_education(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Analyzes how the household head's education relates to children's education.
+    """
+    # Define education ordering
+    edu_order = {
+        "Never attended": 0,
+        "Play group": 1,
+        "Pre-primary": 2,
+        "Junior school": 3,
+        "Primary education": 4,
+        "Secondary Education": 5,
+        "Post Primary Vocational Training Certificate": 6,
+        "Middle level college": 7,
+        "Bachelor's or equivalent level": 8,
+        "POST-GRADUATE DIPLOMA": 9,
+        "Master's or equivalent level": 10,
+        "Doctoral or equivalent level": 11,
+        "MADRASSA/DUKSI": 12,
+        "NON-FORMAL EDUCATION": 13,
+        "Not elsewhere classified": 14
+    }
+
+    df = df.copy()
+    df["edu_code"] = df["education_level"].map(edu_order).fillna(-1)
+
+    # Heads of household
+    heads = (
+        df[df["relationship_to_head"] == "HEAD"]
+        .set_index("interview_key")[["edu_code", "education_level"]]
+        .rename(columns={"edu_code": "head_edu_code", "education_level": "head_edu"})
+    )
+
+    # Children & dependents (SON/DAUGHTER, GRANDCHILD, etc.)
+    children = df[df["relationship_to_head"].isin(["SON OR DAUGHTER", "GRANDCHILD"])]
+    children = children.set_index("interview_key")
+
+    # Merge children with head's education
+    merged = children.join(heads, on="interview_key")
+
+    return merged.reset_index()
