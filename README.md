@@ -7,8 +7,7 @@ This project investigates the socio-economic and spatial factors that influence 
 
 
 
-
-## 📂 Project Structure
+## Project Structure
 ```
 fynesse/
 ├── access.py      # Data access functionality
@@ -23,7 +22,7 @@ fynesse/
 ```
 
 
----
+
 
 ## Installation
 Clone or fork the repository then
@@ -34,14 +33,15 @@ import os, subprocess, importlib, sys
 sys.path.append("/content/fynesse_mlfc")
 
 ```
+---
 The analysis employs the Access–Assess–Address framework:
 
-Access – Explore school attendance patterns across age, gender, county, and household status.
+---Access--- – Explore school attendance patterns across age, gender, county, and household status.
 
 Assess – Investigate how socio-economic factors (income, parental education, household head status) shape attainment and participation.
 
 Address – Identify spatial and infrastructural barriers (distance to schools, electricity, internet, road access) that constrain educational opportunities.
----
+
 
 
 ## Using the Framework
