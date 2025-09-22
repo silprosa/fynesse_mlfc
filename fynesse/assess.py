@@ -321,3 +321,27 @@ def plot_counties(relation_ids, prop=None, ax=None):
     
     plt.show()
     return
+def analyze_distance_to_school(df_col):
+    plt.figure(figsize=(15, 5))
+    
+    # Convert meters to kilometers
+    distance_km = df_col / 1000
+    
+    # Subplot 1: histogram
+    plt.subplot(1, 2, 1)
+    distance_km.dropna().hist(bins=30)
+    plt.title("Distance to School (km)")
+    plt.xlabel("Distance (km)")
+    plt.ylabel("Count")
+    
+    # Subplot 2: Log scale on Y-axis (count)
+    plt.subplot(1, 2, 2)
+    distance_km.dropna().hist(bins=30)
+    plt.yscale('log')  
+    plt.title(f"Distance to School (km) - Log Count")
+    
+    plt.xlabel("Distance (km)")
+    plt.ylabel("Log(Count)")
+    
+    plt.tight_layout()
+    plt.show()
