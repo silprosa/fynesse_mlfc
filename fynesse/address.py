@@ -182,3 +182,56 @@ def analyze_data(data: Union[pd.DataFrame, Any]) -> dict[str, Any]:
         logger.error(f"Error during data analysis: {e}")
         print(f"Error analyzing data: {e}")
         return {"error": str(e)}
+
+def plot_odds_ratios(model, title="Odds Ratios", figsize=(10, 12)):
+    """
+    Extracts odds ratios with confidence intervals from a statsmodels logistic regression model 
+    and plots them on a horizontal bar chart.
+
+    Parameters:
+    -----------
+    model : statsmodels.discrete.discrete_model.BinaryResults
+        Fitted logistic regression model.
+    title : str, optional
+        Title of the plot. Default is "Odds Ratios".
+    figsize : tuple, optional
+        Size of the matplotlib figure. Default is (10, 12).
+
+    Returns:
+    --------
+    odds_ratios_df : pd.DataFrame
+        DataFrame containing 2.5%, 97.5%, and OR values for each variable.
+    """
+
+    # Extract coefficients and confidence intervals
+    params = model.params
+    conf = model.conf_int()
+    conf['OR'] = params
+    conf.columns = ['2.5%', '97.5%', 'OR']
+
+    # Convert from log-odds to odds ratios
+    odds_ratios = np.exp(conf)
+
+    # Sort for readability
+    odds_ratios_df = odds_ratios.sort_values(by="OR", ascending=False)
+
+    # Plot
+    plt.figure(figsize=figsize)
+    plt.barh(
+        odds_ratios_df.index, 
+        odds_ratios_df['OR'], 
+        xerr=[
+            odds_ratios_df['OR'] - odds_ratios_df['2.5%'],
+            odds_ratios_df['97.5%'] - odds_ratios_df['OR']
+        ],
+        alpha=0.7
+    )
+    
+    plt.axvline(x=1, color='red', linestyle='--')  # baseline
+    plt.xlabel("Odds Ratio (log scale)")
+    plt.title(title)
+    plt.xscale("log")  # log scale for better visualization
+    plt.tight_layout()
+    plt.show()
+
+    return odds_ratios_df
