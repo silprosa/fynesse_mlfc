@@ -1,12 +1,11 @@
-# Fynesse Template
+# Socio-Economic and Spatial Factors in Kenyan Education
 
-[![Tests](https://github.com/lawrennd/fynesse_template/workflows/Test/badge.svg)](https://github.com/lawrennd/fynesse_template/actions/workflows/test.yml)
-[![Code Quality](https://github.com/lawrennd/fynesse_template/workflows/Code%20Quality/badge.svg)](https://github.com/lawrennd/fynesse_template/actions/workflows/code-quality.yml)
+
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![Poetry](https://img.shields.io/badge/poetry-1.0+-blue.svg)](https://python-poetry.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This is a *GitHub template repository* for data analysis projects using the Fynesse framework. The template uses Poetry for dependency management, pytest for testing, and follows current Python development best practices.
+This project investigates educational access and outcomes using household and individual-level survey data from the   the Kenyan National Household Survey. The analysis follows the Access-Assess-Address framework.
 
 ## What is a GitHub Template?
 
