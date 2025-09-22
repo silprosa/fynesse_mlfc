@@ -369,3 +369,29 @@ def analyze_distance_to_school(df_col):
     
     plt.tight_layout()
     plt.show()
+
+def plot_distance_vs_area(area_df: pd.DataFrame, distance_col: str, title: str) -> None:
+    """
+    Plots the relationship between county area and average distance to schools.
+
+    Parameters
+    ----------
+    area_df : pd.DataFrame
+        DataFrame with 'Area' and a distance column (in meters).
+    distance_col : str
+        The column name for distance (e.g., 'dist_pri_school' or 'dist_sec_school').
+    title : str
+        Title for the plot, describing the type of school (Primary or Secondary).
+    """
+    plt.figure(figsize=(7, 5))
+    sns.regplot(
+        data=area_df,
+        x="Area",
+        y=area_df[distance_col] / 1000,   # convert to km
+        scatter_kws={"s": 50, "alpha": 0.7}
+    )
+    plt.title(f"{title} vs County Area")
+    plt.xlabel("County Area (sq km)")
+    plt.ylabel(f"Mean {title} (km)")
+    plt.tight_layout()
+    plt.show()
