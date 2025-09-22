@@ -183,7 +183,11 @@ def analyze_data(data: Union[pd.DataFrame, Any]) -> dict[str, Any]:
         print(f"Error analyzing data: {e}")
         return {"error": str(e)}
 
-def plot_odds_ratios(model, title="Odds Ratios", figsize=(10, 12)):
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+def plot_odds_ratios(model, title="Odds Ratios", figsize=(10, 12), county_col_name="county"):
     """
     Extracts odds ratios with confidence intervals from a statsmodels logistic regression model 
     and plots them on a horizontal bar chart.
@@ -196,6 +200,8 @@ def plot_odds_ratios(model, title="Odds Ratios", figsize=(10, 12)):
         Title of the plot. Default is "Odds Ratios".
     figsize : tuple, optional
         Size of the matplotlib figure. Default is (10, 12).
+    county_col_name : str, optional
+        Name to use for the county/variable column. Default is "county".
 
     Returns:
     --------
@@ -214,23 +220,33 @@ def plot_odds_ratios(model, title="Odds Ratios", figsize=(10, 12)):
 
     # Sort for readability
     odds_ratios_df = odds_ratios.sort_values(by="OR", ascending=False)
+    
+    # Reset index to make variable names a column and rename it
+    odds_ratios_df = odds_ratios_df.reset_index()
+    odds_ratios_df = odds_ratios_df.rename(columns={'index': county_col_name})
 
-    # Plot
+    # Plot using the county column as labels
     plt.figure(figsize=figsize)
+    
+    # Calculate error bars
+    y_pos = range(len(odds_ratios_df))
+    lower_error = odds_ratios_df['OR'] - odds_ratios_df['2.5%']
+    upper_error = odds_ratios_df['97.5%'] - odds_ratios_df['OR']
+    
     plt.barh(
-        odds_ratios_df.index, 
+        y_pos, 
         odds_ratios_df['OR'], 
-        xerr=[
-            odds_ratios_df['OR'] - odds_ratios_df['2.5%'],
-            odds_ratios_df['97.5%'] - odds_ratios_df['OR']
-        ],
+        xerr=[lower_error, upper_error],
         alpha=0.7
     )
     
     plt.axvline(x=1, color='red', linestyle='--')  # baseline
     plt.xlabel("Odds Ratio (log scale)")
+    plt.ylabel("Variables")
     plt.title(title)
+    plt.yticks(y_pos, odds_ratios_df[county_col_name])
     plt.xscale("log")  # log scale for better visualization
+    plt.gca().invert_yaxis()  # highest OR at the top
     plt.tight_layout()
     plt.show()
 
