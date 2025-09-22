@@ -12,7 +12,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 import numpy as np
-
+import matplotlib.pyplot as plt
 def train_location_classifier(X_train, y_train, model_type='logistic'):
     """
     Train a classifier to predict location based on geographic features.
