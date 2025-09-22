@@ -251,3 +251,26 @@ def plot_odds_ratios(model, title="Odds Ratios", figsize=(10, 12), county_col_na
     plt.show()
 
     return odds_ratios_df
+
+
+def process_county_df(df, access, county_list):
+    # Filter rows that start with "county_"
+    county_df = df[df['county'].str.startswith("county_")].copy()
+    
+    # Remove prefix
+    county_df['county'] = county_df['county'].str.replace("county_", "", regex=False)
+    
+    # Clean county names in dataframe
+    county_df['county'] = access.clean_county_names(county_df['county'])
+    
+    # Clean county_list as well (to ensure exact match)
+    county_list_clean = access.clean_county_names(county_list)
+    
+    # Keep only required columns
+    county_df = county_df[['county', 'OR']]
+    
+    # Reindex according to cleaned county list
+    result = county_df.set_index("county").reindex(county_list_clean).reset_index()
+    
+    return result
+
