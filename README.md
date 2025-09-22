@@ -2,117 +2,19 @@
 
 
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![Poetry](https://img.shields.io/badge/poetry-1.0+-blue.svg)](https://python-poetry.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This project investigates educational access and outcomes using household and individual-level survey data from the   the Kenyan National Household Survey. The analysis follows the Access-Assess-Address framework.
 
-## What is a GitHub Template?
 
-A GitHub template repository allows you to quickly create new repositories with the same structure and files. When you use this template, you'll get a complete project setup with:
 
-- Modern Python development environment (Poetry)
-- Comprehensive testing framework (pytest)
-- Code quality tools (black, mypy, flake8)
-- Fynesse framework structure ready for implementation
-- Documentation and examples
+We use:
+- **Exploratory Data Analysis (EDA)** (with `pandas`, `matplotlib`, `seaborn`)
+- **Logistic regression** (`statsmodels`, `sklearn`)
+- **Ordinal logistic regression** for ordered education levels (`statsmodels.miscmodels.ordinal_model.OrderedModel`)
 
-## How to Use This Template
+---
 
-### Option 1: Use the "Use this template" Button (Recommended)
-
-1. *Click the green "Use this template" button* at the top of this repository
-2. *Choose "Create a new repository"*
-3. *Name your new repository* (e.g., "my-data-analysis-project")
-4. *Select visibility* (public or private)
-5. *Click "Create repository from template"*
-
-Your new repository will be created with all the template files, and you can start working immediately!
-
-### Option 2: Clone and Customize
-
-```bash
-# Clone the template
-git clone https://github.com/lawrennd/fynesse_template.git my-project-name
-cd my-project-name
-
-# Remove the template's git history and start fresh
-rm -rf .git
-git init
-
-# Add your new remote repository
-git remote add origin https://github.com/yourusername/my-project-name.git
-```
-
-## Quick Start (After Using Template)
-
-### Prerequisites
-- Python 3.9 or higher
-- Poetry (install via `curl -sSL https://install.python-poetry.org | python3 -`)
-
-### Installation
-```bash
-# After creating your repository from the template:
-cd your-new-project-name
-
-# Install dependencies with Poetry
-poetry install
-
-# Activate the virtual environment
-poetry shell
-
-# Run tests to verify installation
-poetry run pytest
-```
-
-### Development Workflow
-```bash
-# Install development dependencies
-poetry install --with dev
-
-# Run tests
-poetry run pytest
-
-# Format code
-poetry run black fynesse/
-
-# Type checking
-poetry run mypy fynesse/
-
-# Linting
-poetry run flake8 fynesse/
-```
-
-### Next Steps After Setup
-
-1. *Update project metadata* in `pyproject.toml`:
-   - Change the project name and description
-   - Update author information
-   - Modify the repository URLs
-
-2. *Customize the framework*:
-   - Implement your data access logic in `fynesse/access.py`
-   - Add data assessment functions in `fynesse/assess.py`
-   - Create analysis functions in `fynesse/address.py`
-
-3. *Configure your environment*:
-   - Edit `fynesse/defaults.yml` for your data sources
-   - Create `fynesse/machine.yml` for local settings
-   - Add your data files to the project
-
-4. *Start development*:
-   - Write your first test
-   - Implement your data pipeline
-   - Document your analysis process
-
-One challenge for data science and data science processes is that they do not always accommodate the real-time and evolving nature of data science advice as required, for example in pandemic response or in managing an international supply chain. The Fynesse paradigm is inspired by experience in operational data science both in the Amazon supply chain and in the UK Covid-19 pandemic response.
-
-The Fynesse paradigm considers three aspects to data analysis, Access, Assess, Address.
-
-## Framework Structure
-
-The template provides a structured approach to implementing the Fynesse framework:
-
+## 📂 Project Structure
 ```
 fynesse/
 ├── access.py      # Data access functionality
@@ -126,14 +28,17 @@ fynesse/
     └── test_address.py
 ```
 
-## Modern Development Features
 
-- *Poetry Dependency Management*: Modern Python packaging with `pyproject.toml` and `poetry.lock`
-- *Comprehensive Testing*: 43 test stubs with pytest and coverage reporting
-- *Code Quality Tools*: Black formatting, mypy type checking, flake8 linting
-- *Virtual Environment*: Isolated development environment with Poetry
-- *Documentation*: Enhanced docstrings and module documentation 
+---
 
+## ⚙️ Installation
+Clone the repository and install dependencies:
+
+```
+git clone https://github.com/your-username/education-analysis.git
+cd education-analysis
+pip install -r requirements.txt
+```
 ## Access
 
 Gaining access to the data, including overcoming availability challenges (data is distributed across architectures, called from an obscure API, written in log books) as well as legal rights (for example intellectual property rights) and individual privacy rights (such as those provided by the GDPR).
