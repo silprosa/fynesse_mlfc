@@ -124,19 +124,6 @@ childorder = {
 }
 
 
-def plot_education_levels(df):
-    plt.figure(figsize=(12, 8))
-
-    education_levels = df.value_counts().dropna
-    education_levels = ( education_levels.reindex(edu_order.keys()).dropna())
-
-    
-    plt.barh(education_levels.index, education_levels.values)
-    plt.title('Education Level Distribution')
-    plt.xlabel('Count')
-    plt.ylabel('Education Level')
-    plt.tight_layout()
-    plt.show()
 
 def get_osm_features(latitude, longitude, box_size_km=2, tags=None):
     """
@@ -476,7 +463,7 @@ def parent_child_education(df: pd.DataFrame) -> pd.DataFrame:
 
     return merged.reset_index()
 
-def plot_age_distribution_by_education(df, edu_order, title="Age Distributions Across Education Levels"):
+def plot_age_distribution_by_education(df, title="Age Distributions Across Education Levels"):
     """
     Plots age distribution histograms for each education level.
 
