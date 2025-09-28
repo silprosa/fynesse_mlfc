@@ -108,8 +108,8 @@ edu_order = {
 
 childorder = {
     "Not elsewhere classified": 0,
-     "MADRASSA/DUKSI": 1,
-    "Never attended": 3,
+    "Never attended": 1,
+    "MADRASSA/DUKSI": 2,
     "Play group": 4,
     "Pre-primary": 5,
     "Junior school": 6,
