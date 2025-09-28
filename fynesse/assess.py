@@ -96,7 +96,7 @@ edu_order = {
     "Play group": 4,
     "Pre-primary": 5,
     "Junior school": 6,
-    " Primary education": 7,
+    "Primary education": 7,
     "Secondary Education": 8,
     "Post Primary Vocational Training Certificate": 9,
     "Middle level college": 10,
@@ -421,25 +421,24 @@ def parent_child_education(df: pd.DataFrame) -> pd.DataFrame:
     """
     Analyzes how the household head's education relates to children's education.
     """
-    # Define education ordering
     edu_order = {
         "Never attended": 0,
-        "Play group": 1,
-        "Pre-primary": 2,
-        "Junior school": 3,
-        "Primary education": 4,
-        "Secondary Education": 5,
-        "Post Primary Vocational Training Certificate": 6,
-        "Middle level college": 7,
-        "Bachelor's or equivalent level": 8,
-        "POST-GRADUATE DIPLOMA": 9,
-        "Master's or equivalent level": 10,
-        "Doctoral or equivalent level": 11,
-        "MADRASSA/DUKSI": 12,
-        "NON-FORMAL EDUCATION": 13,
-        "Not elsewhere classified": 14
+        "Not elsewhere classified":1 ,
+        "NON-FORMAL EDUCATION": 2,
+        "MADRASSA/DUKSI": 3,
+        "Play group": 4,
+        "Pre-primary": 5,
+        "Junior school": 6,
+        "Primary education": 7,
+        "Secondary Education": 8,
+        "Post Primary Vocational Training Certificate": 9,
+        "Middle level college": 10,
+        "Bachelor's or equivalent level": 11,
+        "POST-GRADUATE DIPLOMA": 12,
+        "Master's or equivalent level": 13,
+        "Doctoral or equivalent level": 14
     }
-
+  
     df = df.copy()
     df["edu_code"] = df["education_level"].map(edu_order).fillna(-1)
 
