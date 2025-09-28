@@ -89,8 +89,8 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
     plt.show()
 
 edu_order = {
-    "Never attended": 0,
-    "Not elsewhere classified":1 ,
+    "Not elsewhere classified":0 ,
+    "Never attended": 1,
     "NON-FORMAL EDUCATION": 2,
     "MADRASSA/DUKSI": 3,
     "Play group": 4,
@@ -105,6 +105,24 @@ edu_order = {
     "Master's or equivalent level": 13,
     "Doctoral or equivalent level": 14
 }
+
+childorder = {
+    "Not elsewhere classified": 0,
+     "MADRASSA/DUKSI": 1,
+    "Never attended": 3,
+    "Play group": 4,
+    "Pre-primary": 5,
+    "Junior school": 6,
+    "Primary education": 7,
+    "Secondary Education": 8,
+    "Post Primary Vocational Training Certificate": 9,
+    "Middle level college": 10,
+    "Bachelor's or equivalent level": 11,
+    "POST-GRADUATE DIPLOMA": 12,
+    "Master's or equivalent level": 13,
+    "Doctoral or equivalent level": 14
+}
+
 
 def plot_education_levels(df):
     plt.figure(figsize=(12, 8))
