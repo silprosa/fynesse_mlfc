@@ -96,7 +96,7 @@ edu_order = {
     "Play group": 4,
     "Pre-primary": 5,
     "Junior school": 6,
-    "Primary education": 7,
+    " Primary education": 7,
     "Secondary Education": 8,
     "Post Primary Vocational Training Certificate": 9,
     "Middle level college": 10,
