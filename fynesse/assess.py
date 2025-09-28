@@ -88,11 +88,31 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
     ax.set_title(place_name, fontsize=14)
     plt.show()
 
+edu_order = {
+    "Never attended": 0,
+    "Not elsewhere classified":1 ,
+    "NON-FORMAL EDUCATION": 2,
+    "MADRASSA/DUKSI": 3,
+    "Play group": 4,
+    "Pre-primary": 5,
+    "Junior school": 6,
+    "Primary education": 7,
+    "Secondary Education": 8,
+    "Post Primary Vocational Training Certificate": 9,
+    "Middle level college": 10,
+    "Bachelor's or equivalent level": 11,
+    "POST-GRADUATE DIPLOMA": 12,
+    "Master's or equivalent level": 13,
+    "Doctoral or equivalent level": 14
+}
 
 def plot_education_levels(df):
     plt.figure(figsize=(12, 8))
 
-    education_levels = df.value_counts().dropna()
+    education_levels = df.value_counts().dropna
+    education_levels = ( education_levels.reindex(edu_order.keys()).dropna())
+
+    
     plt.barh(education_levels.index, education_levels.values)
     plt.title('Education Level Distribution')
     plt.xlabel('Count')
