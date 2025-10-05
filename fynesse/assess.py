@@ -559,5 +559,69 @@ def count_schools_by_relation(relation_ids,tags=None):
         results.append({"relation_id": rel_id, "school_count": school_count})
 
     # Make DataFrame indexed by relation_id
-    df = pd.DataFrame(results).set_index("relation_id")
+    df = pd.DataFrame(results)
+    
+
     return df
+
+def get_schools_by_relation(relation_ids, tags=None):
+    """
+    Fetch all schools within each relation polygon.
+
+    Parameters
+    ----------
+    relation_ids : list of str
+        List of OSM relation IDs (e.g. ["R3492709", "R421866"])
+    tags : dict, optional
+        OSM tags to query, default is {"amenity": "school"}
+
+    Returns
+    -------
+    dict
+        Dictionary mapping relation_id -> GeoDataFrame of schools
+    """
+    if tags is None:
+        tags = {"amenity": "school"}
+
+    schools_data = {}
+
+    for rel_id in relation_ids:
+        try:
+            # Get polygon for relation
+            gdf_rel = ox.geocode_to_gdf(rel_id, by_osmid=True)
+            polygon = gdf_rel.loc[0, "geometry"]
+
+            # Get schools within polygon
+            gdf_schools = ox.features_from_polygon(polygon, tags=tags)
+            schools_data[rel_id] = gdf_schools
+
+        except Exception as e:
+            print(f"Error fetching schools for {rel_id}: {e}")
+            schools_data[rel_id] = None
+
+    return schools_data
+
+def count_schools_from_data(schools_data):
+    """
+    Count number of schools for each relation.
+
+    Parameters
+    ----------
+    schools_data : dict
+        Dictionary of relation_id -> GeoDataFrame (as returned by get_schools_by_relation)
+
+    Returns
+    -------
+    pd.DataFrame
+        DataFrame with 'relation_id' and 'school_count'
+    """
+    results = []
+
+    for rel_id, gdf_schools in schools_data.items():
+        if gdf_schools is not None:
+            count = len(gdf_schools)
+        else:
+            count = None
+        results.append({"relation_id": rel_id, "school_count": count})
+
+    return pd.DataFrame(results)
