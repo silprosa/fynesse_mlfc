@@ -387,6 +387,21 @@ def get_relation_ids(county_list):
             print(f"Warning: {county} not found in dictionary")
     return relation_ids
 
+def get_county_names(relation_id_list):
+    """
+    Given a list of relation IDs and a dictionary mapping
+    county names to relation IDs, return a list of county names.
+
+    """
+   relation_to_county = {v: k for k, v in county_relation_ids.items()}
+   county_names = []
+    for rel_id in relation_id_list:
+        if rel_id in relation_to_county:
+            county_names.append(relation_to_county[rel_id])
+        else:
+            print(f" Warning: {rel_id} not found in dictionary")
+            county_names.append(None)
+    return county_names
 
 def clean_boolean_columns(df, columns=None):
     df_clean = df.copy()
