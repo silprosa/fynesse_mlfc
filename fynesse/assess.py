@@ -526,7 +526,7 @@ def plot_relationships_distribution(df, column, relationships, order=None):
         plt.show()
 
 
-def count_schools_by_relation(relation_ids):
+def count_schools_by_relation(relation_ids,tags=None):
     """
     Count schools inside each relation boundary.
 
@@ -548,8 +548,7 @@ def count_schools_by_relation(relation_ids):
             gdf_rel = ox.geocode_to_gdf(rel_id, by_osmid=True)
             polygon = gdf_rel.loc[0, "geometry"]
 
-            # Query schools
-            tags = {"amenity": "school"}
+            
             gdf_schools = ox.features_from_polygon(polygon, tags=tags)
 
             school_count = len(gdf_schools)
