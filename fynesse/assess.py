@@ -31,7 +31,7 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
     south = latitude - box_height/2
     west = longitude - box_width/2
     east = longitude + box_width/2
-    bbox = (west, south, east, north)
+    bbox = (south, west, north, east)
 
     if poi_tags is None:
         poi_tags = {
