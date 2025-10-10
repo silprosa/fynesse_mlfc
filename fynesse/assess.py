@@ -240,7 +240,17 @@ makes rure they are correctly labeled. How is the data indexed. Crete visualisat
 routines to assess the data (e.g. in bokeh). Ensure that date formats are correct
 and correctly timezoned."""
 
+def count_schools_per_relation(schools_df):
+    """
+    Count number of schools for each relation.
 
+    """
+    if schools_df.empty:
+       return pd.DataFrame(columns=['relation_id', 'school_count'])
+    count_df = schools_df.groupby('relation_id').size().reset_index(name='school_count')
+    return count_df
+
+# df_schools = assess.count_schools_from_data(schools_data)
 def data() -> Union[pd.DataFrame, Any]:
     """
     Load the data from access and ensure missing values are correctly encoded as well as
@@ -358,6 +368,7 @@ def merge_county_data(area_df: pd.DataFrame, distances_df: pd.DataFrame) -> pd.D
         "Trans-Nzoia": "Trans Nzoia",
         "Muranga": "Murang'a",
         "Tharaka-Nithi": "Tharaka Nithi"
+        "Nairobi City": "Nairobi":
     }
 
     area_df = area_df.copy()
