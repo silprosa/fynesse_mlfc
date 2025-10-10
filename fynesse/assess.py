@@ -366,8 +366,6 @@ def merge_county_data(area_df: pd.DataFrame, distances_df: pd.DataFrame) -> pd.D
         "Taita–Taveta": "Taita-Taveta",
         "Homa Bay": "Homabay",
         "Trans-Nzoia": "Trans Nzoia",
-        "Muranga": "Murang'a",
-        "Tharaka-Nithi": "Tharaka Nithi"
         "Nairobi City": "Nairobi":
     }
 
