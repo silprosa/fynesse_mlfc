@@ -153,7 +153,7 @@ def data(file_path: str, name: str = "DataFrame") -> Union[pd.DataFrame, None]:
         logger.info(f"Loading data from {file_path}...")
 
         if file_path.endswith(".csv"):
-            df = pd.read_csv(file_path)
+            df = pd.read_csv(file_path, low_memory=False)
         elif file_path.endswith(".dta"):
             df = pd.read_stata(file_path)
         else:
