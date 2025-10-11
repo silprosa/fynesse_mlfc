@@ -373,6 +373,10 @@ def clean_county_names(counties):
         name = name.replace("’", "")  # also handle curly apostrophe
         county_list.append(name)
     return county_list
+def clean_county_name(name):
+    if pd.isna(name):
+        return name
+    return (name.strip().replace("–","").replace("—","") .replace("-","").replace(" ","") .replace("City","").replace("'","").lower())
 
 def get_relation_ids(county_list):
     """
